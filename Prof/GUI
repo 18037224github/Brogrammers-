@@ -1,0 +1,406 @@
+from tkinter import *
+import os
+
+
+def register():
+    global register_screen
+    register_screen = Toplevel(main_screen)
+    register_screen.config(background="orange")
+    register_screen.title("Register")
+    register_screen.geometry("300x300")
+
+    global username
+    global password
+    global username_entry
+    global password_entry
+    username = StringVar()
+    password = StringVar()
+
+    Label(register_screen, text="Please enter details below", bg="grey").pack()
+    Label(register_screen, text="",bg="orange").pack()
+    username_lable = Label(register_screen, text="Username * ",bg="grey")
+    username_lable.pack()
+    username_entry = Entry(register_screen ,textvariable=username)
+    username_entry.pack()
+    password_lable = Label(register_screen, text="Password * ", bg="grey")
+    password_lable.pack()
+    password_entry = Entry(register_screen, textvariable=password, show='*')
+    password_entry.pack()
+    Label(register_screen, text="",bg="orange").pack()
+    Button(register_screen, text="Register", width=10, height=1, bg="grey", command=register_user).pack()
+
+
+def login():
+    global login_screen
+    login_screen = Toplevel(main_screen)
+    login_screen.title("Login")
+    login_screen.geometry("300x300")
+    login_screen.config(background="orange")
+    Label(login_screen, text="Assets Tracking/Disciplinary Action Tracking Services", bg="grey").pack()
+    Label(login_screen, text="",bg="orange").pack()
+
+    global username_verify
+    global password_verify
+
+    username_verify = StringVar()
+    password_verify = StringVar()
+
+    global username_login_entry
+    global password_login_entry
+
+    Label(login_screen, text="Username * ",bg="grey").pack()
+    username_login_entry = Entry(login_screen, textvariable=username_verify)
+    username_login_entry.pack()
+    Label(login_screen, text="",bg="orange").pack()
+    Label(login_screen, text="Password * ",bg="grey").pack()
+    password_login_entry = Entry(login_screen, textvariable=password_verify,show='*')
+    password_login_entry.pack()
+    Label(login_screen, text="",bg="orange").pack()
+    Button(login_screen, text="Login", width=10, height=1, bg="grey",command=login_verify).pack()
+
+def RegisterEmployeeForAssetTracking():
+    global RegisterEmployee_screen
+    RegisterEmployee_screen=Toplevel(main_screen)
+    RegisterEmployee_screen.title("Register Employee")
+    RegisterEmployee_screen.config(background="orange")
+    RegisterEmployee_screen.geometry("300x300")
+
+    global employeeNumber
+    global employeeName
+    global employeeAsset
+
+    employeeNumber = StringVar()
+    employeeName = StringVar()
+    employeeAsset = StringVar()
+
+    global employeeNumber_entry
+    global employeeName_entry
+    global employeeAsset_entry
+
+
+
+    Label(RegisterEmployee_screen, text="Please enter Employee details below", bg="grey").pack()
+    Label(RegisterEmployee_screen, text="", bg="orange").pack()
+    employeeNumber_lable = Label(RegisterEmployee_screen, text="Employee Number * ", bg="grey")
+    employeeNumber_lable.pack()
+    employeeNumber_entry = Entry(RegisterEmployee_screen, textvariable=employeeNumber)
+    employeeNumber_entry.pack()
+    employeeName_lable=Label(RegisterEmployee_screen, text="Employee Name *",bg="grey")
+    employeeName_lable.pack()
+    employeeName_entry=Entry(RegisterEmployee_screen, textvariable=employeeName)
+    employeeName_entry.pack()
+    employeeAsset_lable=Label(RegisterEmployee_screen, text="Employee Asset *" ,bg="grey")
+    employeeAsset_lable.pack()
+    employeeAsset_entry=Entry(RegisterEmployee_screen, textvariable=employeeAsset)
+    employeeAsset_entry.pack()
+    Label(RegisterEmployee_screen, text="", bg="orange").pack()
+    Button(RegisterEmployee_screen, text="Register Employee", width=20,height=1,bg="grey",command=register_Employee).pack()
+
+def RegisterEmployeeDisciplinaryActionTracking():
+    global RegisterEmployeeDisciplinaryActionTracking_screen
+    RegisterEmployeeDisciplinaryActionTracking_screen=Toplevel(main_screen)
+    RegisterEmployeeDisciplinaryActionTracking_screen.title("Register Employee")
+    RegisterEmployeeDisciplinaryActionTracking_screen.config(background="orange")
+    RegisterEmployeeDisciplinaryActionTracking_screen.geometry("300x300")
+
+    global employeeNumberDA
+    global employeeNumberDA_entry
+    employeeNumberDA=StringVar()
+
+    Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="Please enter Employee details below", bg="grey").pack()
+    Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="", bg="orange").pack()
+    employeeNumberDA_lable = Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="Employee Number * ", bg="grey")
+    employeeNumberDA_lable.pack()
+    employeeNumberDA_entry = Entry(RegisterEmployeeDisciplinaryActionTracking_screen, textvariable=employeeNumberDA)
+    employeeNumberDA_entry.pack()
+    Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="", bg="orange").pack()
+    Button(RegisterEmployeeDisciplinaryActionTracking_screen, text="Register Employee", width=20,height=1,bg="grey",command=register_EmployeeDA).pack()
+
+def register_user():
+    username_info = username.get()
+    password_info = password.get()
+
+    file = open(username_info, "w")
+    file.write(username_info + "\n")
+    file.write(password_info)
+    file.close()
+
+    username_entry.delete(0, END)
+    password_entry.delete(0, END)
+
+    Label(register_screen, text="Registration Success", bg="grey").pack()
+
+def register_Employee():
+    Employee_info=employeeNumber.get()
+    Employee_info=employeeName.get()
+    Employee_info=employeeAsset.get()
+
+    file=open(Employee_info,"w")
+    file.write(Employee_info + "\n")
+    file.close()
+
+    employeeNumber_entry.delete(0, END)
+
+    Label(RegisterEmployee_screen, text="Employee Registered",bg="grey").pack()
+
+def register_EmployeeDA():
+    EmployeeDA_info=employeeNumberDA.get()
+
+    file=open(EmployeeDA_info,"w")
+    file.write(EmployeeDA_info + "\n")
+    file.close()
+
+    employeeNumberDA_entry.delete(0, END)
+
+    Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="Employee Registered",bg="grey").pack()
+
+def login_verify():
+    username1 = username_verify.get()
+    password1 = password_verify.get()
+    username_login_entry.delete(0, END)
+    password_login_entry.delete(0, END)
+
+    list_of_files = os.listdir()
+    if username1 in list_of_files:
+        file1 = open(username1, "r")
+        verify = file1.read().splitlines()
+        if password1 in verify:
+            login_success()
+        else:
+            password_not_recognised()
+    else:
+        user_not_found()
+def Search_verify():
+    employeeNumber =employeeNumber_verify.get()
+    employeeNumber_entry.delete(0, END)
+
+    list_of_files=os.listdir()
+    if employeeNumber in list_of_files:
+        file1=open(employeeNumber, "r")
+        verify=file1.read().splitlines()
+        if employeeNumber in verify:
+            search_success()
+        else:
+         employeeNumber_not_recognised()
+def Search_verifyDA():
+    employeeNumberDA =employeeNumberDA_verify.get()
+    employeeNumberDA_entry.delete(0, END)
+
+    list_of_files=os.listdir()
+    if employeeNumberDA in list_of_files:
+        file1=open(employeeNumberDA, "r")
+        verify=file1.read().splitlines()
+        if employeeNumberDA in verify:
+            search_successDA()
+        else:
+         employeeNumberDA_not_recognised()
+def search_success():
+    global search_success_screen
+    search_success_screen=Toplevel(login_screen)
+    search_success_screen.title("Success")
+    search_success_screen.geometry("300x250")
+    search_success_screen.config(background="orange")
+    Label(search_success_screen,text="Employee Data found",bg="grey").pack()
+    Label(search_success_screen, text="",bg="orange").pack()
+    Button(search_success_screen, text="OK", bg="grey",command=Asset_Tracking_Search).pack()
+
+def search_successDA():
+    global search_success_screen
+    search_success_screen=Toplevel(login_screen)
+    search_success_screen.title("Success")
+    search_success_screen.geometry("250x100")
+    search_success_screen.config(background="orange")
+    Label(search_success_screen,text="Employee Data found",bg="grey").pack()
+    Label(search_success_screen, text="",bg="orange").pack()
+    Button(search_success_screen, text="OK", bg="grey",command=Disciplinary_Action_Tracking_Search).pack()
+def login_success():
+    global login_success_screen
+    login_success_screen = Toplevel(login_screen)
+    login_success_screen.title("Success")
+    login_success_screen.geometry("250x100")
+    login_success_screen.config(background="orange")
+    Label(login_success_screen, text="Access Granted",bg="grey").pack()
+    Label(login_success_screen, text="",bg="orange").pack()
+    Button(login_success_screen, text="OK",bg="grey", command=PolicyDocument).pack()
+
+def employeeNumber_not_recognised():
+    global employeeNumber_not_recognised_screen
+    employeeNumber_not_recognised_screen=Toplevel()
+    employeeNumber_not_recognised_screen.title("ERROR")
+    employeeNumber_not_recognised_screen.geometry("250x100")
+    employeeNumber_not_recognised_screen.config(background="orange")
+    Label(employeeNumber_not_recognised_screen, text="Invalid Employee Number",bg="grey").pack()
+    Label(employeeNumber_not_recognised_screen,text="",bg="orange").pack()
+    Button(employeeNumber_not_recognised_screen,text="OK",bg="grey",command=delete_employeeNumber_not_recognised).pack()
+
+def employeeNumberDA_not_recognised():
+    global employeeNumberDA_not_recognised_screen
+    employeeNumberDA_not_recognised_screen=Toplevel()
+    employeeNumberDA_not_recognised_screen.title("ERROR")
+    employeeNumberDA_not_recognised_screen.geometry("250x100")
+    employeeNumberDA_not_recognised_screen.config(background="orange")
+    Label(employeeNumberDA_not_recognised_screen, text="Invalid Employee Number",bg="grey").pack()
+    Label(employeeNumberDA_not_recognised_screen,text="",bg="orange")
+    Button(employeeNumberDA_not_recognised_screen,text="OK",bg="grey",command=delete_employeeNumberDA_not_recognised).pack()
+
+def password_not_recognised():
+    global password_not_recog_screen
+    password_not_recog_screen = Toplevel(login_screen)
+    password_not_recog_screen.title("ERROR")
+    password_not_recog_screen.config(background="orange")
+    password_not_recog_screen.geometry("250x100")
+    Label(password_not_recog_screen, text="Invalid Password",bg="grey").pack()
+    Label(password_not_recog_screen, text="",bg="orange").pack()
+    Button(password_not_recog_screen, text="OK",bg="grey" ,command=delete_password_not_recognised).pack()
+
+
+def user_not_found():
+    global user_not_found_screen
+    user_not_found_screen = Toplevel(login_screen)
+    user_not_found_screen.title("ERROR")
+    user_not_found_screen.config(background="orange")
+    user_not_found_screen.geometry("250x100")
+    Label(user_not_found_screen, text="User Not Found",bg="grey").pack()
+    Label(user_not_found_screen, text="",bg="orange").pack()
+    Button(user_not_found_screen, text="OK",bg="grey" ,command=delete_user_not_found_screen).pack()
+
+
+def delete_login_success():
+    login_success_screen.destroy()
+
+
+def delete_password_not_recognised():
+    password_not_recog_screen.destroy()
+
+
+def delete_user_not_found_screen():
+    user_not_found_screen.destroy()
+
+def delete_employeeNumber_not_recognised():
+    employeeNumber_not_recognised_screen.destroy()
+
+def delete_employeeNumberDA_not_recognised():
+    employeeNumberDA_not_recognised_screen.destroy()
+
+def PolicyDocument():
+    Policy_Document_Screen=Toplevel(login_screen)
+    Policy_Document_Screen.title("Policy Document")
+    Policy_Document_Screen.geometry("300x300")
+    Policy_Document_Screen.config(background="orange")
+    Label(Policy_Document_Screen,text="Policy Document Here", width="300", height="2", bg="grey").pack()
+    Label(text="",bg="orange").pack()
+    Label(Policy_Document_Screen, text="Do you agree to the above policy", width="300", height="2",bg="grey").pack()
+    Label(text="",bg="orange").pack()
+    Button(Policy_Document_Screen,text="YES",height="2",width="10",bg="grey", command=select_service).pack()
+    Button(Policy_Document_Screen,text="NO",height="2",width="10",bg="grey", command=Policy_Doc_Issue).pack()
+
+def Policy_Doc_Issue():
+    global Policy_Doc_Issue_Screen
+    Policy_Doc_Issue_Screen=Toplevel(login_screen)
+    Policy_Doc_Issue_Screen.title("Policy Document Issue")
+    Policy_Doc_Issue_Screen.config(background="orange")
+    Policy_Doc_Issue_Screen.geometry("350x100")
+    Label(Policy_Doc_Issue_Screen, text="You need to argee to the Policy Document before logging in",bg="grey").pack()
+    Label(text="",bg="orange").pack()
+    Button(Policy_Doc_Issue_Screen, text="Ok", bg="grey",command=PolicyDocument).pack()
+
+def select_service():
+    select_service_screen=Toplevel(login_screen)
+    select_service_screen.title("Service Selection")
+    select_service_screen.geometry("300x300")
+    select_service_screen.config(background="orange")
+    Label(select_service_screen,text="Which service do you wish to access?",width="300", height="2",bg="grey").pack()
+    Label(text="",bg="orange").pack()
+    Button(select_service_screen,text="Asset Tracking", height="2", width="50",bg="grey" ,command=Asset_Tracking).pack()
+    Label(select_service_screen, text="",bg="orange").pack()
+    Button(select_service_screen,text="Disciplinary Acton Tracking", height="2", width="50",bg="grey",command=Disciplinary_Action_Tracking).pack()
+    Label(select_service_screen, text="", bg="orange").pack()
+    Button(select_service_screen,text="Register Employee for Asset Tracking", height=2, width="50", bg="grey",command=RegisterEmployeeForAssetTracking).pack()
+    Label(select_service_screen,text="", bg="orange").pack()
+    Button(select_service_screen,text="Register Employee for Disciplinary Action Tracking", height="2", width="50", bg="grey",command=RegisterEmployeeDisciplinaryActionTracking).pack()
+
+def Asset_Tracking():
+    Asset_Tracking_screen=Toplevel(login_screen)
+    Asset_Tracking_screen.title("Asset Tracking")
+    Asset_Tracking_screen.geometry("300x300")
+    Asset_Tracking_screen.config(background="orange")
+    Label(Asset_Tracking_screen, text="Asset Tracking", width="300", height="2",bg="grey").pack()
+    Label(text="",bg="orange").pack()
+    Label(Asset_Tracking_screen,text="Please input a valid Employee Number",width="300", height="2",bg="grey").pack()
+    Label(text="",bg="orange").pack
+    global employeeNumber_verify
+
+    employeeNumber_verify = StringVar()
+
+    global employeeNumber_entry
+
+    Label(Asset_Tracking_screen, text="Employee Number * ", bg="grey").pack()
+    employeeNumber_entry= Entry(Asset_Tracking_screen, textvariable=employeeNumber_verify)
+    employeeNumber_entry.pack()
+    Label(Asset_Tracking_screen, text="", bg="orange").pack()
+    Label(Asset_Tracking_screen, text="", bg="orange").pack()
+    Button(Asset_Tracking_screen, text="Search",height="2", width="30",bg="grey",command= Search_verify).pack()
+
+def Asset_Tracking_Search():
+    Asset_Tracking_Search_screen=Toplevel(login_screen)
+    Asset_Tracking_Search_screen.title("Result")
+    Asset_Tracking_Search_screen.geometry("300x300")
+    Asset_Tracking_Search_screen.config(background="orange")
+    Label(Asset_Tracking_Search_screen, text="DATA HERE", width="300", height="2").pack()
+    Label(text="",bg="orange").pack()
+    Label(Asset_Tracking_Search_screen, text="Would you like to search again?",width="300", height="2",bg="grey").pack()
+    Button(Asset_Tracking_Search_screen, text="YES", height="2", width="30", bg="grey",command=select_service).pack()
+    Button(Asset_Tracking_Search_screen,text="No", height="2", width="30",bg="grey").pack()
+
+def Disciplinary_Action_Tracking ():
+    Disciplinary_Action_Tracking_screen=Toplevel(login_screen)
+    Disciplinary_Action_Tracking_screen.title("Disciplinary Action Tracking")
+    Disciplinary_Action_Tracking_screen.geometry("300x300")
+    Disciplinary_Action_Tracking_screen.config(background="orange")
+    Label(Disciplinary_Action_Tracking_screen, text="Disciplinary Acton Tracking ",width="300", height="2",bg="grey").pack()
+    Label(text="",bg="orange").pack()
+    Label(Disciplinary_Action_Tracking_screen,text="Please input a valid Employee Number",width="300", height="2",bg="grey").pack()
+    Label(text="",bg="orange").pack
+    global employeeNumberDA_verify
+
+    employeeNumberDA_verify = StringVar()
+
+    global employeeNumberDA_entry
+
+    Label(Disciplinary_Action_Tracking_screen, text="Employee Number * ", bg="grey").pack()
+    employeeNumberDA_entry = Entry(Disciplinary_Action_Tracking_screen, textvariable=employeeNumberDA_verify)
+    employeeNumberDA_entry.pack()
+    Label(Disciplinary_Action_Tracking_screen, text="", bg="orange").pack()
+    Label(Disciplinary_Action_Tracking_screen, text="", bg="orange").pack()
+    Button(Disciplinary_Action_Tracking_screen, text="Search", height="2", width="30", bg="grey", command=Search_verifyDA).pack()
+
+
+
+def Disciplinary_Action_Tracking_Search():
+    Disciplinary_Action_Tracking_Search_screen=Toplevel(login_screen)
+    Disciplinary_Action_Tracking_Search_screen.title("Result")
+    Disciplinary_Action_Tracking_Search_screen.config(background="orange")
+    Disciplinary_Action_Tracking_Search_screen.geometry("300x300")
+    Label(Disciplinary_Action_Tracking_Search_screen, text="DATA HERE", width="300", height="2").pack()
+    Label(text="",bg="orange").pack()
+    Label(Disciplinary_Action_Tracking_Search_screen, text="Would you like to search again?",width="300", height="2", bg="grey").pack()
+    Button(Disciplinary_Action_Tracking_Search_screen, text="YES", height="2", width="30", bg="grey",command=select_service).pack()
+    Button(Disciplinary_Action_Tracking_Search_screen,text="No", height="2", width="30",bg="grey").pack()
+
+def main_account_screen():
+    global main_screen
+    main_screen = Tk()
+    main_screen.geometry("300x300")
+    main_screen.config(background="orange")
+    main_screen.title("Account Login")
+    Label(text="Select an option",width="300", height="2",bg="grey").pack()
+    Label(text="",bg="orange").pack()
+    Button(text="Login", height="2", width="300", bg="grey",command=login).pack()
+    Label(text="",bg="orange").pack()
+    Button(text="Register User", height="2", width="300",bg="grey" ,command=register).pack()
+    Label(text="",bg="orange").pack()
+
+    main_screen.mainloop()
+
+
+main_account_screen()
