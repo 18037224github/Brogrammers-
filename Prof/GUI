@@ -69,15 +69,13 @@ def RegisterEmployeeForAssetTracking():
     global employeeName
     global employeeAsset
 
-    employeeNumber = StringVar()
-    employeeName = StringVar()
-    employeeAsset = StringVar()
-
     global employeeNumber_entry
     global employeeName_entry
     global employeeAsset_entry
 
-
+    employeeNumber = StringVar()
+    employeeName = StringVar()
+    employeeAsset = StringVar()
 
     Label(RegisterEmployee_screen, text="Please enter Employee details below", bg="grey").pack()
     Label(RegisterEmployee_screen, text="", bg="orange").pack()
@@ -104,15 +102,31 @@ def RegisterEmployeeDisciplinaryActionTracking():
     RegisterEmployeeDisciplinaryActionTracking_screen.geometry("300x300")
 
     global employeeNumberDA
+    global employeeNameDA
+    global employeeDA
+
     global employeeNumberDA_entry
+    global employeeNameDA_entry
+    global employeeDA_entry
+
     employeeNumberDA=StringVar()
+    employeeNameDA=StringVar()
+    employeeDA=StringVar()
 
     Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="Please enter Employee details below", bg="grey").pack()
     Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="", bg="orange").pack()
-    employeeNumberDA_lable = Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="Employee Number * ", bg="grey")
+    employeeNumberDA_lable = Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="Employee Number *(Add a DA before the number) ", bg="grey")
     employeeNumberDA_lable.pack()
     employeeNumberDA_entry = Entry(RegisterEmployeeDisciplinaryActionTracking_screen, textvariable=employeeNumberDA)
     employeeNumberDA_entry.pack()
+    employeeNameDA_lable=Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="Employee Name *",bg="grey")
+    employeeNameDA_lable.pack()
+    employeeNameDA_entry=Entry(RegisterEmployeeDisciplinaryActionTracking_screen, textvariable=employeeNameDA)
+    employeeNameDA_entry.pack()
+    employeeDA_lable=Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="Employee's Disciplinary Actions *", bg="grey")
+    employeeDA_lable.pack()
+    employeeDA_entry=Entry(RegisterEmployeeDisciplinaryActionTracking_screen, textvariable=employeeDA)
+    employeeDA_entry.pack()
     Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="", bg="orange").pack()
     Button(RegisterEmployeeDisciplinaryActionTracking_screen, text="Register Employee", width=20,height=1,bg="grey",command=register_EmployeeDA).pack()
 
@@ -131,26 +145,36 @@ def register_user():
     Label(register_screen, text="Registration Success", bg="grey").pack()
 
 def register_Employee():
-    Employee_info=employeeNumber.get()
-    Employee_info=employeeName.get()
-    Employee_info=employeeAsset.get()
+    Employee_info1=employeeNumber.get()
+    Employee_info2=employeeName.get()
+    Employee_info3=employeeAsset.get()
 
-    file=open(Employee_info,"w")
-    file.write(Employee_info + "\n")
+    file=open(Employee_info1,"w")
+    file.write(Employee_info1 + "\n")
+    file.write(Employee_info2 + "\n")
+    file.write(Employee_info3)
     file.close()
 
     employeeNumber_entry.delete(0, END)
+    employeeName_entry.delete(0,END)
+    employeeAsset_entry.delete(0,END)
 
     Label(RegisterEmployee_screen, text="Employee Registered",bg="grey").pack()
 
 def register_EmployeeDA():
-    EmployeeDA_info=employeeNumberDA.get()
+    EmployeeDA_info1=employeeNumberDA.get()
+    EmployeeDA_info2=employeeNameDA.get()
+    EmployeeDA_info3=employeeDA.get()
 
-    file=open(EmployeeDA_info,"w")
-    file.write(EmployeeDA_info + "\n")
+    file=open(EmployeeDA_info1,"w")
+    file.write(EmployeeDA_info1 + "\n")
+    file.write(EmployeeDA_info2 + "\n")
+    file.write(EmployeeDA_info3)
     file.close()
 
     employeeNumberDA_entry.delete(0, END)
+    employeeNameDA_entry.delete(0, END)
+    employeeDA_entry.delete(0, END)
 
     Label(RegisterEmployeeDisciplinaryActionTracking_screen, text="Employee Registered",bg="grey").pack()
 
@@ -359,7 +383,7 @@ def Disciplinary_Action_Tracking ():
     Disciplinary_Action_Tracking_screen.config(background="orange")
     Label(Disciplinary_Action_Tracking_screen, text="Disciplinary Acton Tracking ",width="300", height="2",bg="grey").pack()
     Label(text="",bg="orange").pack()
-    Label(Disciplinary_Action_Tracking_screen,text="Please input a valid Employee Number",width="300", height="2",bg="grey").pack()
+    Label(Disciplinary_Action_Tracking_screen,text="Please input a valid Employee Number(Add a DA before the number) ",width="300", height="2",bg="grey").pack()
     Label(text="",bg="orange").pack
     global employeeNumberDA_verify
 
