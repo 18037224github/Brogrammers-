@@ -1,6 +1,7 @@
 from tkinter import *
 import os
 
+root=Tk
 
 def register():
     global register_screen
@@ -201,6 +202,7 @@ def login_verify():
             password_not_recognised()
     else:
         user_not_found()
+
 def Search_verify():
     employeeNumber =employeeNumber_verify.get()
     employeeNumber_entry.delete(0, END)
@@ -210,6 +212,8 @@ def Search_verify():
         file1=open(employeeNumber, "r")
         verify=file1.read().splitlines()
         if employeeNumber in verify:
+            f=open(employeeNumber,"r")
+            print(f.read())
             search_success()
     else:
             employeeNumber_not_recognised()
@@ -231,10 +235,12 @@ def search_success():
 
 def search_successDA():
    Label(Disciplinary_Action_Tracking_screen,text="Employee Data found",font=("arial nova light",18) ,bg="#e0e0e0").pack()
+
    Button(Disciplinary_Action_Tracking_screen, text="OK", bg="#c0c0c0" ,font=("arial nova light",14),command=Disciplinary_Action_Tracking_Search).pack()
 def login_success():
     Label(login_screen,text="Credentials Correct",font=("arial nova light" ,12), bg="#ffcc99").pack()
     Button(login_screen, text="OK",bg="#c0c0c0" ,font=("arial nova light",14), command=PolicyDocument).pack()
+
 
 def employeeNumber_not_recognised():
     Label(Asset_Tracking_screen, text="Employee Data not found", font=("arial nova light", 12), bg="#ffcc99").pack()
@@ -249,11 +255,6 @@ def password_not_recognised():
 
 def user_not_found():
     Label(login_screen, text="Invalid Username", bg="#ffcc99", font=("arial nova light", 12)).pack()
-
-
-
-
-
 
 def PolicyDocument():
     global Policy_Document_Screen
@@ -318,7 +319,7 @@ def Asset_Tracking_Search():
     Asset_Tracking_Search_screen.title("Result")
     Asset_Tracking_Search_screen.geometry("500x400")
     Asset_Tracking_Search_screen.config(background="#ffcc99")
-    Label(Asset_Tracking_Search_screen, text="DATA HERE", width="300", height="2").pack()
+    Label(Asset_Tracking_Search_screen, text="", width="300", height="2").pack()
     Label(text="",bg="#ffcc99").pack()
     Label(Asset_Tracking_Search_screen, text="Would you like to search again?",width="300", height="2",font=("arial nova light",18) ,bg="#e0e0e0").pack()
     Button(Asset_Tracking_Search_screen, text="YES", height="2", width="30", bg="#c0c0c0" ,font=("arial nova light",14),command=select_service).pack()
@@ -372,6 +373,7 @@ def main_account_screen():
     Label(text="",bg="#ffcc99").pack()
     Button(text="Register User", height="2", width="30",bg="#c0c0c0" ,font=("arial nova light",14),command=register).pack()
     Label(text="",bg="#ffcc99").pack()
+
 
     main_screen.mainloop()
 
